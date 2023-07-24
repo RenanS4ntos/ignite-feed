@@ -1,26 +1,50 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
 import { ThumbsUp, Trash } from "phosphor-react";
 import styles from "./Comment.module.css";
 import { Avatar } from "../Avatar";
 
-export function Comment() {
+export function Comment({ author, content, publishedAt, likes }) {
+  const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
   return (
     <div className={styles.comment}>
-      <Avatar src="https://github.com/renanS4ntos.png" hasBorder={false}/>
+      <Avatar src={author.avatar_url} hasBorder={false}/>
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Renan Santos</strong>
-              <time title="21 de Julho às 13:24h" dateTime="2023-07-21 13:24:00">Cerca de 2h atrás</time>
+              <strong>{author.name}</strong>
+              <time 
+                title={publishedDateFormatted} 
+                dateTime={publishedAt.toISOString()}
+              >
+                {publishedDateRelativeToNow}
+              </time>
             </div>
 
             <button title="Deletar comentário">
               <Trash size={24}/>
             </button>
           </header>
-          <p>Muito bom Devon, parabéns!! 👏👏</p>
+          {
+            content.map(line => {
+              if (line.type === "paragraph") {
+                return <p>{line.content}</p>;
+              } else if (line.type === "link") {
+                return <p><a href="#">{line.content}</a></p>;
+              }
+            })
+          }
         </div>
 
         <footer>
@@ -28,7 +52,7 @@ export function Comment() {
               <ThumbsUp size={20}/>
               Aplaudir
               <span></span>
-              20
+              {likes}
           </button>
         </footer>
       </div>
