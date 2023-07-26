@@ -5,5 +5,5 @@
 - O módulo contempla conceitos e dicas básicas sobre a biblioteca estudada
 
 <h1 align="center">
-  <img alt="IgniteFeed" title="IgniteFeed" src="./assets/banner.png" />
+  <img alt="IgniteFeed" title="IgniteFeed" src="./assets/Ignite-logo.svg" />
 </h1>
