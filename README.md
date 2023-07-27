@@ -35,10 +35,10 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
     $ cd ignite-feed
 
     # Instalar as dependências
-    $ yarn install
+    $ npm install
 
     # Iniciar o projeto
-    $ yarn start
+    $ npm run start
 ```
 
 ---
