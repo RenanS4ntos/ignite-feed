@@ -1,13 +1,39 @@
-/* eslint-disable react/prop-types */
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR"
 import { Comment } from '../Comment';
 import { Avatar } from '../Avatar';
 
 import styles from './Post.module.css';
-import { useState } from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 
-export function Post({ author, content, publishedAt, comments }) {
+export interface Author {
+  name: string;
+  role: string;
+  avatar_url: string;
+}
+
+export interface Content {
+  type: "paragraph" | "link";
+  content: string;
+}
+
+export interface Comments {
+  id: number;
+  author: Author;
+  publishedAt: Date;
+  likes: number;
+  content: Content[];
+}
+
+interface PostProps {
+  id: number;
+  author: Author;
+  publishedAt: Date;
+  content: Content[];
+  comments: Comments[];
+ }
+
+export function Post({ author, content, publishedAt, comments }: PostProps) {
   const [newCommentText, setNewCommentText] = useState('');
   
 
@@ -20,22 +46,22 @@ export function Post({ author, content, publishedAt, comments }) {
     addSuffix: true,
   });
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
     console.log(newCommentText);
   }
 
-  function handleNewCommentInvalid() {
-    event.target.setCustomValidity("Este campo é obrigatório!");
-  }
-
-  function handleChangeNewComment() {
+  function handleChangeNewComment(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("");
     setNewCommentText(event.target.value);
   }
 
-  function deleteComment(object) {
-    consoe.log(`Deletando: ${object}`);
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
+    event.target.setCustomValidity("Este campo é obrigatório!");
+  }
+
+  function deleteComment(commentToDeleteID: number) {
+    console.log(`Deletando: ${commentToDeleteID}`);
   }
 
   const isNewCommentEmpty = newCommentText.length === 0;
@@ -44,7 +70,7 @@ export function Post({ author, content, publishedAt, comments }) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src={`${author.avatar_url}`} />
+          <Avatar src={`${author.avatar_url}`} alt={author.name}/>
           <div className={styles.authorInfo}>
             <strong>{author.name}</strong>  
             <span>{author.role}</span>
@@ -69,7 +95,7 @@ export function Post({ author, content, publishedAt, comments }) {
         })}
       </div>
 
-      <form onSubmit={() => handleCreateNewComment()} className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
         <textarea 
           placeholder='Escreva um comentário...'
@@ -96,6 +122,7 @@ export function Post({ author, content, publishedAt, comments }) {
             return (
               <Comment 
                 key={comment.id}
+                id={comment.id}
                 author={comment.author}
                 content={comment.content}
                 publishedAt={comment.publishedAt}

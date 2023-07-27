@@ -1,46 +1,27 @@
-<h1 align="center">
-    <img src="https://ik.imagekit.io/r1fzu0agz/Capa.png">
-</h1>
+# React + TypeScript + Vite
 
-# Indice
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-- [Sobre](#-sobre)
-- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
-- [Como baixar o projeto](#-como-baixar-o-projeto)
+Currently, two official plugins are available:
 
-## 🔖&nbsp; Sobre
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-O projeto **Ignite Feed** é uma aplicação de feed de posts e comentários, que foi criado dentro do curso **Ignite ReactJS 2023 - [Rocketseat](https://app.rocketseat.com.br/)** com o intuito de colocarmos em prática todo conteúdo estudado durante o curso.
+## Expanding the ESLint configuration
 
----
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## 🚀 Tecnologias utilizadas
+- Configure the top-level `parserOptions` property like this:
 
-O projeto foi desenvolvido utilizando as seguintes tecnologias
-
-- [ReactJS](https://reactjs.org)
-- [CSS Modules](https://github.com/css-modules/css-modules)
-- [TypeScript](https://www.typescriptlang.org/)
-
----
-
-## 🗂 Como baixar o projeto
-
-```bash
-
-    # Clonar o repositório
-    $ git clone https://github.com/renanS4ntos/ignite-feed
-
-    # Entrar no diretório
-    $ cd ignite-feed
-
-    # Instalar as dependências
-    $ yarn install
-
-    # Iniciar o projeto
-    $ yarn start
+```js
+   parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+   },
 ```
 
----
-
-Desenvolvido 💜 por Renan Santos
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

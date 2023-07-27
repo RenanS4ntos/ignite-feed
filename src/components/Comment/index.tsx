@@ -5,9 +5,19 @@ import { ThumbsUp, Trash } from "phosphor-react";
 import styles from "./Comment.module.css";
 import { Avatar } from "../Avatar";
 import { useState } from "react";
+import { Author, Content } from "../Post";
 
-export function Comment({ author, content, publishedAt, likes, deleteComment }) {
-  const [likeCount, setLikeCount] = useState(0);
+interface CommentProps {
+  id: number;
+  author: Author;
+  content: Content[];
+  publishedAt: Date;
+  likes: number;
+  deleteComment: (commentID: number) => void;
+}
+
+export function Comment({ id, author, content, publishedAt, likes, deleteComment }: CommentProps) {
+  const [likeCount, setLikeCount] = useState(likes);
 
   const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
@@ -19,7 +29,7 @@ export function Comment({ author, content, publishedAt, likes, deleteComment }) 
   });
 
   function handleDeleteComment() {
-    deleteComment(content)
+    deleteComment(id);
   }
 
   function handleLikeComment() {

@@ -3,10 +3,18 @@ import { Sidebar } from "./components/Sidebar"
 
 import styles from "./App.module.css";
 import "./global.css"
-import { Post } from "./components/Post";
+import { Author, Comments, Content, Post } from "./components/Post";
+
+interface Post {
+  id: number;
+  author: Author;
+  publishedAt: Date;
+  content: Content[],
+  comments: Comments[];
+}
 
 
-const posts = [
+const posts: Post[] = [
   {
     id: 1,
     author: {
@@ -26,6 +34,7 @@ const posts = [
         author: {
           avatar_url: "https://github.com/maykBrito.png",
           name: "Mayk Brito",
+          role: "Educator at @Rocketseat"
         },
         publishedAt: new Date("2023-07-24 16:00:00"),
         content: [
@@ -78,6 +87,7 @@ export function App() {
             posts.map((post) => (
               <Post 
                 key={post.id}
+                id={post.id}
                 author={post.author}
                 publishedAt={post.publishedAt}
                 content={post.content}
