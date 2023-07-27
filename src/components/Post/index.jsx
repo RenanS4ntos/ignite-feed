@@ -8,6 +8,7 @@ import styles from './Post.module.css';
 import { useState } from "react";
 
 export function Post({ author, content, publishedAt, comments }) {
+  const [newCommentText, setNewCommentText] = useState('');
   
 
   const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
@@ -21,9 +22,23 @@ export function Post({ author, content, publishedAt, comments }) {
 
   function handleCreateNewComment() {
     event.preventDefault();
-
-    console.log("foi!");
+    console.log(newCommentText);
   }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity("Este campo é obrigatório!");
+  }
+
+  function handleChangeNewComment() {
+    event.target.setCustomValidity("");
+    setNewCommentText(event.target.value);
+  }
+
+  function deleteComment(object) {
+    consoe.log(`Deletando: ${object}`);
+  }
+
+  const isNewCommentEmpty = newCommentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -56,9 +71,22 @@ export function Post({ author, content, publishedAt, comments }) {
 
       <form onSubmit={() => handleCreateNewComment()} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
-        <textarea placeholder='Escreva um comentário...' />
+        <textarea 
+          placeholder='Escreva um comentário...'
+          name="comment"
+          onInvalid={handleNewCommentInvalid}
+          onChange={handleChangeNewComment}
+          value={newCommentText}
+          required
+        />
         <footer>
-          <button className={styles.button} type='submit'>Publicar</button>
+          <button 
+            className={styles.button} 
+            type='submit'
+            disabled={isNewCommentEmpty}
+          >
+            Publicar
+          </button>
         </footer>
       </form>
 
@@ -72,6 +100,7 @@ export function Post({ author, content, publishedAt, comments }) {
                 content={comment.content}
                 publishedAt={comment.publishedAt}
                 likes={comment.likes}
+                deleteComment={deleteComment}
               />
             );
           })

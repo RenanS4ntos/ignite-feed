@@ -4,8 +4,11 @@ import ptBR from "date-fns/locale/pt-BR";
 import { ThumbsUp, Trash } from "phosphor-react";
 import styles from "./Comment.module.css";
 import { Avatar } from "../Avatar";
+import { useState } from "react";
 
-export function Comment({ author, content, publishedAt, likes }) {
+export function Comment({ author, content, publishedAt, likes, deleteComment }) {
+  const [likeCount, setLikeCount] = useState(0);
+
   const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
   });
@@ -14,6 +17,14 @@ export function Comment({ author, content, publishedAt, likes }) {
     locale: ptBR,
     addSuffix: true,
   });
+
+  function handleDeleteComment() {
+    deleteComment(content)
+  }
+
+  function handleLikeComment() {
+    setLikeCount(likeCount + 1)
+  }
 
   return (
     <div className={styles.comment}>
@@ -32,7 +43,7 @@ export function Comment({ author, content, publishedAt, likes }) {
               </time>
             </div>
 
-            <button title="Deletar comentário">
+            <button onClick={handleDeleteComment} title="Deletar comentário">
               <Trash size={24}/>
             </button>
           </header>
@@ -48,11 +59,11 @@ export function Comment({ author, content, publishedAt, likes }) {
         </div>
 
         <footer>
-          <button title="Deletar comentário">
+          <button onClick={handleLikeComment} title="Deletar comentário">
               <ThumbsUp size={20}/>
               Aplaudir
               <span></span>
-              {likes}
+              {likeCount}
           </button>
         </footer>
       </div>
