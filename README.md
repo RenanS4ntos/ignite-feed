@@ -1,9 +1,46 @@
-# Ignite Feed
-
-## O que é?
-- **Ignite Feed** é um projeto que faz parte do primeiro módulo de introdução ao ReactJS do curso Ignite @Rocketseat
-- O módulo contempla conceitos e dicas básicas sobre a biblioteca estudada
-
 <h1 align="center">
-  <img alt="IgniteFeed" title="IgniteFeed" src="./assets/Ignite-logo.svg" />
+    <img src="https://ik.imagekit.io/r1fzu0agz/Capa.png">
 </h1>
+
+# Indice
+
+- [Sobre](#-sobre)
+- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [Como baixar o projeto](#-como-baixar-o-projeto)
+
+## 🔖&nbsp; Sobre
+
+O projeto **Ignite Feed** é uma aplicação de feed de posts e comentários, que foi criado dentro do curso **Ignite ReactJS 2023 - [Rocketseat](https://app.rocketseat.com.br/)** com o intuito de colocarmos em prática todo conteúdo estudado durante o curso.
+
+---
+
+## 🚀 Tecnologias utilizadas
+
+O projeto foi desenvolvido utilizando as seguintes tecnologias
+
+- [ReactJS](https://reactjs.org)
+- [CSS Modules](https://github.com/css-modules/css-modules)
+- [TypeScript](https://www.typescriptlang.org/)
+
+---
+
+## 🗂 Como baixar o projeto
+
+```bash
+
+    # Clonar o repositório
+    $ git clone https://github.com/renanS4ntos/ignite-feed
+
+    # Entrar no diretório
+    $ cd ignite-feed
+
+    # Instalar as dependências
+    $ yarn install
+
+    # Iniciar o projeto
+    $ yarn start
+```
+
+---
+
+Desenvolvido 💜 por Renan Santos
